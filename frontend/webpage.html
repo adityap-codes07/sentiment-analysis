@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sentiment analysis</title>
+    <link id="theme" rel="stylesheet" href="/static/dark.css">
+</head>
+<body>
+    <button id="themeButton">☀</button>
+    <div class = "container">
+        <!-- HEADER -->
+        <div class = "header">SENTIMENT ANALYSIS</div>
+        <!-- BASIC DETAIL SECTION-->
+        <div class = "basic-details">
+            <h3>Basic Details: </h3>
+            <ol>
+                <li>
+                    <strong>Polarity (-1 to 1)</strong>
+                    <ul>
+                        <li>Positive (0 to 1)</li>
+                        <li>Negative (-1 to 0)</li>
+                        <li>Neutral (0)</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Subjectivity (0 to 1)</strong>
+                    <ul>
+                        <li>0 = Factual</li>
+                        <li>1 = Opinion</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Input Section -->
+        <div class = "input-section">
+            <form method="POST" action="/">
+                <textarea name="text" placeholder="Enter your text here...">{{ user_text|e }}</textarea>
+                <!-- Analyze Button -->
+                <button type="submit">Analyze</button>
+            </form>
+        </div>
+
+        <!-- Output Section -->
+        <div class="output-section">
+            <h3>OUTPUT:</h3>
+
+            {% if result %}
+                <p class="output-text">
+                    <strong>Sentiment:</strong> {{ result.classification }}
+                </p>
+
+                <p class="output-text">
+                    <strong>Polarity:</strong> {{ result.polarity }}
+                </p>
+
+                <p class="output-text">
+                    <strong>Subjectivity:</strong> {{ result.subjectivity }}
+                </p>
+            {% else %}
+                <p class="output-text">Analysis results will be displayed here.</p>
+            {% endif %}
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</body>
+</html>
